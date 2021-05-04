@@ -1,0 +1,267 @@
+/*--------------------------------------------------
+	Модальные окна - modal windows
+---------------------------------------------------*/
+
+.asidecart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 111;
+
+  display: flex;
+  align-items: flex-end;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &.is-empty{
+    .asidecart{
+      &__empty-content{
+        display: flex;
+      }
+      &__subheader, &__footer{
+        display: none;
+      }
+    }
+  }
+  &__empty-content{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    @include flexCenter;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    margin: auto;
+
+    display: none;
+
+    &-icon{
+      width: 200px;
+      height: 200px;
+    }
+    &-text{
+      margin-top: -5px;
+
+      text-align: center;
+      font-size: 16px;
+      line-height: 150%;
+      color: #d0d2d4;
+    }
+  }
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  &__dialog { 
+    position: relative;
+    z-index: 1;
+    
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 100%;
+    margin: 0;
+    margin-left: auto;
+    padding: 32px 40px 40px 40px;
+
+    background: #ffffff;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
+
+    @include for-size(phone-medium) {
+      padding: 24px;
+    }
+  }
+  &__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 80px;
+  }
+  &__subheader{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+
+    &-counter{
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 112%;
+      color: $color-black-text;
+    }
+    &-clear-button{
+      font-weight: 300;
+      font-size: 11px;
+      line-height: 112%;
+      text-align: right;
+      color: $color-black-text;
+      text-transform: uppercase;
+
+      opacity: 0.4;
+    }
+  }
+  &__footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+
+    &-total{
+      &-wrapper{
+        display: flex;
+        flex-direction: column;
+      }
+      &-title{
+        margin-bottom: 6px;
+        
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 100%;
+        color: $color-black-text;
+      }
+      &-price{
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 100%;
+        letter-spacing: -0.02em;
+        color: $color-black-text;
+
+        @include for-size(phone-medium) {
+          font-size: 25px;
+        }
+      }
+    }
+    &-order-button{
+      @include button-with-bg-custom(
+        $color-green,
+        $color-black-text,
+        $color-green,
+        $color-black-text,
+        0px 57px
+      );
+      width: max-content;
+      height: 56px;
+
+      @include for-size(phone-medium) {
+        padding: 0px 20px;
+      }
+    }
+  }
+  &__title{
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 88%;
+    letter-spacing: -0.04em;
+    color: $color-black-text;
+  }
+  &__close-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, .1)
+  }
+  &__goods_list{
+    margin-bottom: 40px;
+  }
+  &__goods-item{
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+  
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  
+    @include for-size(phone-medium) {
+      flex-wrap: wrap;
+    }
+
+    &-removed-wrapper{
+      display: flex;
+      align-items: center;
+      width: 100%;
+      
+      pointer-events: none;
+      opacity: .4;
+      
+      @include for-size(phone-medium) {
+        flex-wrap: wrap;
+      }
+    }
+    &-refresh-button{
+      position: absolute;
+      right: 0;
+      z-index: 2;
+    }
+
+    &-img {
+      overflow: hidden;
+      flex-shrink: 0;
+      width: 96px;
+      height: 96px;
+      margin-right: 8px;
+  
+      border-radius: $border-radius2;
+  
+      img {
+        width: 100%;
+      }
+    }
+    &-text-wrapper{
+      max-width: 165px;
+
+      @include for-size(phone-medium){
+        flex: 1;
+        max-width: unset;
+      }
+    }
+    &-title {
+      display: flex;
+      margin-bottom: 16px;
+  
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 112%;
+      letter-spacing: 0.02em;
+      color: $color-black-text;
+    }
+    &-price {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 100%;
+      color: $color-black-text;
+    }
+    &-delete{
+      @include for-size(phone-medium){
+        position: absolute;
+        right: 0;
+        top: 23px;
+      }
+    }
+    .quantity-toggle{
+      @include for-size(phone-medium) {
+        width: 100%;
+        margin: 15px 0 0 0;
+      }
+    }
+  }
+}
